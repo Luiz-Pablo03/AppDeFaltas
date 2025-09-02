@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "projeto-falta",
+    "name": "Faltep",
     "slug": "projeto-falta",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.luizpb.projetofalta"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "acc7d421-0cd1-4f3d-b7fd-5fc8ac8d2774"
+      }
     }
   }
 }
