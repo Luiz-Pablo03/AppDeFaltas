@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   absenceContainer: {
     minWidth: 80,
     height: 80,
-    backgroundColor: COLORS.background, // Usa a cor de fundo principal para contraste
+    backgroundColor: COLORS.background,
     borderRadius: SIZES.borderRadius,
     justifyContent: 'center',
     alignItems: 'center',
