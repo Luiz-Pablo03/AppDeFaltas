@@ -1,43 +1,42 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from './types';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
+import { MateriasNavigator } from './MateriasNavigator';
+import { HorariosNavigator } from './HorariosNavigator';
+import { COLORS } from '../constants/theme';
 
-import { HomeScreen } from '../screens/HomeScreen';
-import { AdicionarMateria } from '../screens/AdicionarMateria';
-// Import atualizado para o novo nome de arquivo
-import { DetalhesMateria } from '../screens/DetalhesMateria';
-
-const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      // A MÁGICA ACONTECE AQUI, NO "PAI"
+    <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: COLORS.background,
+        },
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: COLORS.textTertiary,
       }}
-
     >
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: 'Visão Geral' }}
-      />
-      <Stack.Screen
-        name="AdicionarMateria"
-        component={AdicionarMateria}
+      <Tab.Screen
+        name="Matérias"
+        component={MateriasNavigator}
         options={{
-          title: 'Nova Matéria',
-          presentation: 'modal',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="book-open" color={color} size={size} />
+          ),
         }}
       />
-      <Stack.Screen
-        name="DetalhesMateria"
-        // Componente atualizado para o novo nome
-        component={DetalhesMateria}
-        options={{ title: 'Detalhes da Matéria' }}
+      <Tab.Screen
+        name="Horários"
+        component={HorariosNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="clock" color={color} size={size} />
+          ),
+        }}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 };

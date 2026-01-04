@@ -5,13 +5,13 @@ import {
   TextInput, 
   Button, 
   StyleSheet, 
-  SafeAreaView, 
   Alert, 
   ScrollView, 
   KeyboardAvoidingView, 
   Platform,
   StatusBar
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMaterias } from '../hooks/useMaterias';
 import { AdicionarMateriaScreenProps } from '../navigation/types';
 import { COLORS, SIZES } from '../constants/theme';
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingTop: 20,
   },
   innerContainer: {
     flex: 1,
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.title,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
-    marginTop: SIZES.padding,
+    marginTop: SIZES.padding * 1,
     marginBottom: SIZES.marginVertical,
   },
   form: {

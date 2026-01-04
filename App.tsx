@@ -3,18 +3,22 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { MateriasProvider } from './src/context/MateriasContext';
+import { HorariosProvider } from './src/context/HorariosContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <MateriasProvider>
-      <NavigationContainer>
-        <AppNavigator/>
-        <StatusBar style="auto" />
-      </NavigationContainer>
-    </MateriasProvider>
-
-
+    <SafeAreaProvider>
+      <MateriasProvider>
+        <HorariosProvider>
+          <NavigationContainer>
+            <AppNavigator/>
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </HorariosProvider>
+      </MateriasProvider>
+    </SafeAreaProvider>
   );
 }
 

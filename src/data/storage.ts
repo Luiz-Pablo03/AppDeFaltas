@@ -1,12 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Materia } from "../types";
+import { Materia, Horario } from "../types";
 
-const STORAGE_KEY = '@faltaApp:materias';
+const MATERIAS_STORAGE_KEY = '@faltaApp:materias';
+const HORARIOS_STORAGE_KEY = '@faltaApp:horarios';
 
 export async function salvarMaterias(materias: Materia[]): Promise<void> {
     try {
         const jsonValue = JSON.stringify(materias);
-        await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
+        await AsyncStorage.setItem(MATERIAS_STORAGE_KEY, jsonValue);
     } catch (e) {
         console.error("Erro ao salvar matérias:", e);
         throw new Error("Não foi possível salvar as matérias.");
@@ -15,10 +16,30 @@ export async function salvarMaterias(materias: Materia[]): Promise<void> {
 
 export async function carregarMaterias(): Promise<Materia[]> {
     try {
-        const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
+        const jsonValue = await AsyncStorage.getItem(MATERIAS_STORAGE_KEY);
         return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
         console.error("Erro ao carregar matérias:", e);
         throw new Error("Não foi possível carregar as matérias.");
+    }
+}
+
+export async function salvarHorarios(horarios: Horario[]): Promise<void> {
+    try {
+        const jsonValue = JSON.stringify(horarios);
+        await AsyncStorage.setItem(HORARIOS_STORAGE_KEY, jsonValue);
+    } catch (e) {
+        console.error("Erro ao salvar horários:", e);
+        throw new Error("Não foi possível salvar os horários.");
+    }
+}
+
+export async function carregarHorarios(): Promise<Horario[]> {
+    try {
+        const jsonValue = await AsyncStorage.getItem(HORARIOS_STORAGE_KEY);
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.error("Erro ao carregar horários:", e);
+        throw new Error("Não foi possível carregar os horários.");
     }
 }

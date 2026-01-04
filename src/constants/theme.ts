@@ -1,17 +1,15 @@
-// src/constants/theme.ts
-
 export const COLORS = {
-    background: '#121212', // Um preto um pouco mais suave
-    cardBackground: '#1E1E1E', // Cinza escuro para os cards
+    background: '#121212',
+    cardBackground: '#1E1E1E',
     textPrimary: '#FFFFFF',
     textSecondary: '#E0E0E0',
     textTertiary: '#A0A0A0',
-    primary: '#1976D2', // Azul para elementos de destaque
+    primary: '#1976D2',
     statusSuccess: '#4CAF50',
     statusWarning: '#FF9800',
     statusDanger: '#F44336',
-    progressBackground: '#3a3a3a', // Fundo da barra de progresso
-    surface: '#2a2a2a', // Cor de superfície para elementos de UI
+    progressBackground: '#3a3a3a',
+    surface: '#2a2a2a',
 };
 export const SIZES = {
     padding: 16,
@@ -25,6 +23,6 @@ export const SIZES = {
     cardSubtitle: 14,
     textNormal: 16,
     textSmall: 12,
-    fabBottom: 40,
+    fabBottom: 24,
     fabRight: 24,
 };

@@ -6,9 +6,8 @@ import {
   ActivityIndicator,
   StyleSheet,
   StatusBar,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+  TouchableOpacity,} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMaterias } from '../hooks/useMaterias';
 import { HomeScreenProps } from '../navigation/types';
 import { calcularMaximoFaltas } from '../utils/calculation';
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: SIZES.title,
     fontWeight: 'bold',
-    marginTop: SIZES.padding * 2,
+    marginTop: SIZES.padding * 1,
     marginBottom: SIZES.marginVertical,
     color: COLORS.textPrimary
   },

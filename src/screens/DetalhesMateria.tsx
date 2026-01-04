@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Alert, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMaterias } from '../hooks/useMaterias';
 import { DetalhesMateriaScreenProps } from '../navigation/types';
 import { calcularMaximoFaltas } from '../utils/calculation';
