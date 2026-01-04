@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 import { MateriasNavigator } from './MateriasNavigator';
 import { HorariosNavigator } from './HorariosNavigator';
+import { AnotacoesNavigator } from './AnotacoesNavigator';
 import { COLORS } from '../constants/theme';
 
 const Tab = createBottomTabNavigator();
@@ -14,6 +15,7 @@ export const AppNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: COLORS.background,
+          bottom: 20,
         },
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.textTertiary,
@@ -34,6 +36,15 @@ export const AppNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="clock" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Anotações"
+        component={AnotacoesNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="clipboard" color={color} size={size} />
           ),
         }}
       />

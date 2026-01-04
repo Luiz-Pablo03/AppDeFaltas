@@ -1,18 +1,23 @@
 import { StackScreenProps } from '@react-navigation/stack';
 
-export type RootStackParamList = {
-  Home: undefined;
-  AdicionarMateria: undefined;
-  DetalhesMateria: { materiaId: string };
+export type MateriasStackParamList = {
+    Materias: undefined;
+    AdicionarMateria: undefined;
+    DetalhesMateria: { materiaId: string };
 };
 
 export type HorariosStackParamList = {
-  Horarios: undefined;
-  AdicionarHorario: undefined;
+    Horarios: undefined;
+    AdicionarHorario: undefined;
 };
 
-export type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
-export type AdicionarMateriaScreenProps = StackScreenProps<RootStackParamList, 'AdicionarMateria'>;
-export type DetalhesMateriaScreenProps = StackScreenProps<RootStackParamList, 'DetalhesMateria'>;
+export type AnotacoesStackParamList = {
+    Anotacoes: undefined;
+    AdicionarAnotacao: undefined;
+};
+
+export type AdicionarMateriaScreenProps = StackScreenProps<MateriasStackParamList, 'AdicionarMateria'>;
+export type DetalhesMateriaScreenProps = StackScreenProps<MateriasStackParamList, 'DetalhesMateria'>;
+export type MateriasScreenProps = StackScreenProps<MateriasStackParamList, 'Materias'>;
 export type HorariosScreenProps = StackScreenProps<HorariosStackParamList, 'Horarios'>;
 export type AdicionarHorarioScreenProps = StackScreenProps<HorariosStackParamList, 'AdicionarHorario'>;

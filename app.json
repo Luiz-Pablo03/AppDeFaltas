@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Faltep",
-    "slug": "projeto-falta",
+    "slug": "faltep",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,8 +28,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "acc7d421-0cd1-4f3d-b7fd-5fc8ac8d2774"
+        "projectId": "d2851666-6d9f-4ea6-a6e3-8fdf4ac0c455"
       }
-    }
+    },
+    "owner": "luiz18s-organization"
   }
 }

@@ -2,14 +2,24 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HorariosContext } from '../context/HorariosContext';
-import { DiaCard } from '../components/DiaCard';
-import { COLORS, SIZES } from '../constants/theme';
+import { DiaCardItem } from '../components/DiaCardItem';
 import { HorariosScreenProps } from '../navigation/types';
+import { COLORS, SIZES } from '../constants/theme';
 
-const diasDaSemana = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira'];
+const diasDaSemana = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo'];
 
 export const HorariosScreen = ({ navigation }: HorariosScreenProps) => {
   const { horarios, loading } = useContext(HorariosContext);
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.innerContainer}>
+          <Text>Carregando...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -19,9 +29,9 @@ export const HorariosScreen = ({ navigation }: HorariosScreenProps) => {
           data={diasDaSemana}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <DiaCard
+            <DiaCardItem
               dia={item}
-              horarios={horarios.filter(h => h.diaSemana === item)}
+              horarios={horarios}
             />
           )}
           ListEmptyComponent={<Text>Nenhum horário cadastrado.</Text>}

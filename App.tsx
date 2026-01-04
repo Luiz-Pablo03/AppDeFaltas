@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { MateriasProvider } from './src/context/MateriasContext';
 import { HorariosProvider } from './src/context/HorariosContext';
+import { AnotacoesProvider } from './src/context/AnotacoesContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -12,10 +13,12 @@ export default function App() {
     <SafeAreaProvider>
       <MateriasProvider>
         <HorariosProvider>
-          <NavigationContainer>
-            <AppNavigator/>
-            <StatusBar style="auto" />
-          </NavigationContainer>
+          <AnotacoesProvider>
+            <NavigationContainer>
+              <AppNavigator/>
+              <StatusBar style="auto" />
+            </NavigationContainer>
+          </AnotacoesProvider>
         </HorariosProvider>
       </MateriasProvider>
     </SafeAreaProvider>

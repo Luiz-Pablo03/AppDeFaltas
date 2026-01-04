@@ -15,9 +15,18 @@ export interface Falta {
 
 export interface Horario {
   id: string;
-  diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira';
+  diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira' | 'Sábado' | 'Domingo';
   materiaId: string;
   horaInicio: string;
-  horaFim: string;
-  local?: string;
-}
+    horaFim: string;
+    local?: string;
+  }
+  
+  export interface Anotacao {
+    id: string;
+    date: string; // YYYY-MM-DD
+    time: string;
+    title: string;
+    details?: string;
+  }
+  

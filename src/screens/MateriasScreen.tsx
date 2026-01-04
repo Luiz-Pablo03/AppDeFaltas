@@ -9,11 +9,11 @@ import {
   TouchableOpacity,} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMaterias } from '../hooks/useMaterias';
-import { HomeScreenProps } from '../navigation/types';
+import { MateriasScreenProps } from '../navigation/types';
 import { calcularMaximoFaltas } from '../utils/calculation';
 import { COLORS, SIZES } from '../constants/theme'; // Importando nosso tema centralizado
 
-export const HomeScreen = ({ navigation }: HomeScreenProps) => {
+export const MateriasScreen = ({ navigation }: MateriasScreenProps) => {
   const { materias, loading } = useMaterias();
 
   if (loading) {
@@ -50,7 +50,6 @@ export const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
             return (
               <TouchableOpacity onPress={() => navigation.navigate('DetalhesMateria', { materiaId: item.id })}>
-                {/* Voltamos a usar uma View normal com o estilo 'card' */}
                 <View style={styles.card}>
                   <View style={styles.cardTextContent}>
                     <Text style={styles.cardTitle}>{item.nome}</Text>

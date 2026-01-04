@@ -9,7 +9,8 @@ import {
   ScrollView, 
   KeyboardAvoidingView, 
   Platform,
-  StatusBar
+  StatusBar,
+  TouchableOpacity
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMaterias } from '../hooks/useMaterias';
@@ -60,7 +61,9 @@ export const AdicionarMateria = ({ navigation }: AdicionarMateriaScreenProps) =>
               <Text style={styles.label}>Presença Mínima Obrigatória (%)</Text>
               <TextInput style={styles.input} value={percentual} onChangeText={setPercentual} placeholder="Ex: 75" keyboardType="numeric" placeholderTextColor={COLORS.textTertiary}/>
 
-              <Button title="Salvar Matéria" onPress={handleSalvar} color={COLORS.primary} />
+              <TouchableOpacity style={styles.buttonSave} onPress={handleSalvar}>
+                <Text style={{ color: COLORS.textPrimary, fontSize: SIZES.textNormal, fontWeight: '600', textAlign: 'center' }}>Salvar Matéria</Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -104,5 +107,12 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.marginVertical,
     borderWidth: 1,
     borderColor: COLORS.textTertiary,
+  },
+  buttonSave: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: SIZES.padding * 0.75,
+    paddingHorizontal: SIZES.padding,
+    borderRadius: SIZES.borderRadius,
+    marginTop: SIZES.marginVertical,
   },
 });

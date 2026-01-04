@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HorariosContext } from '../context/HorariosContext';
 import { MateriasContext } from '../context/MateriasContext';
@@ -13,13 +13,15 @@ const diasDaSemanaOptions = [
   { key: 'Quarta-Feira', label: 'Quarta-Feira' },
   { key: 'Quinta-Feira', label: 'Quinta-Feira' },
   { key: 'Sexta-Feira', label: 'Sexta-Feira' },
+  { key: 'Sábado', label: 'Sábado' },
+  { key: 'Domingo', label: 'Domingo' },
 ];
 
 export const AdicionarHorario = ({ navigation }: AdicionarHorarioScreenProps) => {
   const { adicionarHorario } = useContext(HorariosContext);
   const { materias } = useContext(MateriasContext);
 
-  const [diaSemana, setDiaSemana] = useState('Segunda-Feira');
+  const [diaSemana, setDiaSemana] = useState<'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira' | 'Sábado' | 'Domingo'>('Segunda-Feira');
   const [materiaId, setMateriaId] = useState<string | undefined>();
   const [horaInicio, setHoraInicio] = useState('');
   const [horaFim, setHoraFim] = useState('');
@@ -55,7 +57,7 @@ export const AdicionarHorario = ({ navigation }: AdicionarHorarioScreenProps) =>
         <Text style={styles.label}>Dia da Semana</Text>
         <CustomPicker
           data={diasDaSemanaOptions}
-          onSelect={(option) => setDiaSemana(option.key)}
+          onSelect={(option) => setDiaSemana(option.key as 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira' | 'Sábado' | 'Domingo')}
           placeholder="Selecione um dia"
           selectedValue={selectedDiaSemana}
         />
@@ -100,7 +102,9 @@ export const AdicionarHorario = ({ navigation }: AdicionarHorarioScreenProps) =>
           placeholderTextColor={COLORS.textTertiary}
         />
 
-        <Button title="Salvar Horário" onPress={handleSalvar} color={COLORS.primary} />
+        <TouchableOpacity style={styles.buttonSave} onPress={handleSalvar}>
+          <Text style={{ color: COLORS.textPrimary, fontSize: SIZES.textNormal, fontWeight: '600', textAlign: 'center' }}>Salvar Horário</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -144,5 +148,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.cardBackground,
     color: COLORS.textPrimary,
     marginBottom: SIZES.marginVertical,
+  },
+    buttonSave: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: SIZES.padding * 0.75,
+    paddingHorizontal: SIZES.padding,
+    borderRadius: SIZES.borderRadius,
+    marginTop: SIZES.marginVertical,
   },
 });

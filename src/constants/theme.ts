@@ -8,8 +8,8 @@ export const COLORS = {
     statusSuccess: '#4CAF50',
     statusWarning: '#FF9800',
     statusDanger: '#F44336',
-    progressBackground: '#3a3a3a',
-    surface: '#2a2a2a',
+    progressBackground: '#0d0404ff',
+    surface: '#000000ff',
 };
 export const SIZES = {
     padding: 16,

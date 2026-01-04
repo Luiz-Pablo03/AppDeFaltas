@@ -1,16 +1,16 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from './types';
-import { HomeScreen } from '../screens/HomeScreen';
+import { MateriasStackParamList } from './types';
+import { MateriasScreen } from '../screens/MateriasScreen';
 import { AdicionarMateria } from '../screens/AdicionarMateria';
 import { DetalhesMateria } from '../screens/DetalhesMateria';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<MateriasStackParamList>();
 
 export const MateriasNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Materias"
       // A MÁGICA ACONTECE AQUI, NO "PAI", MUITO LEGAAAAAAAL
       screenOptions={{
         headerShown: false,
@@ -18,8 +18,8 @@ export const MateriasNavigator = () => {
 
     >
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Materias"
+        component={MateriasScreen}
         options={{ title: 'Visão Geral' }}
       />
       <Stack.Screen

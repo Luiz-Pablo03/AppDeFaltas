@@ -5,7 +5,7 @@ import { carregarHorarios, salvarHorarios } from '../data/storage';
 interface HorariosContextData {
   horarios: Horario[];
   loading: boolean;
-  adicionarHorario: (diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira', materiaId: string, horaInicio: string, horaFim: string, local?: string) => Promise<void>;
+  adicionarHorario: (diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira' | 'Sábado' | 'Domingo', materiaId: string, horaInicio: string, horaFim: string, local?: string) => Promise<void>;
   removerHorario: (horarioId: string) => Promise<void>;
 }
 
@@ -29,7 +29,7 @@ export const HorariosProvider = ({ children }: { children: ReactNode }) => {
     loadHorarios();
   }, []);
 
-  const adicionarHorario = async (diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira', materiaId: string, horaInicio: string, horaFim: string, local?: string) => {
+  const adicionarHorario = async (diaSemana: 'Segunda-Feira' | 'Terça-Feira' | 'Quarta-Feira' | 'Quinta-Feira' | 'Sexta-Feira' | 'Sábado' | 'Domingo', materiaId: string, horaInicio: string, horaFim: string, local?: string) => {
     const newHorario: Horario = {
       id: new Date().toISOString(),
       diaSemana,
