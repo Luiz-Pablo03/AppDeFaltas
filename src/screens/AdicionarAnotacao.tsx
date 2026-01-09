@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,18 +13,33 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAnotacoes } from '../context/AnotacoesContext';
-import { StackScreenProps } from '@react-navigation/stack';
-import { AnotacoesStackParamList } from '../navigation/types';
+import { AdicionarAnotacaoScreenProps } from '../navigation/types';
 import { COLORS, SIZES } from '../constants/theme';
 
-type Props = StackScreenProps<AnotacoesStackParamList, 'AdicionarAnotacao'>;
-
-export const AdicionarAnotacao = ({ navigation }: Props) => {
-  const { adicionarAnotacao } = useAnotacoes();
+export const AdicionarAnotacao = ({ route, navigation }: AdicionarAnotacaoScreenProps) => {
+  const { anotacaoId } = route.params || {};
+  const { anotacoes, adicionarAnotacao, editarAnotacao } = useAnotacoes();
+  
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [details, setDetails] = useState('');
+  
+  const isEditing = !!anotacaoId;
+
+  useEffect(() => {
+    if (isEditing) {
+      const anotacao = anotacoes.find(a => a.id === anotacaoId);
+      if (anotacao) {
+        setTitle(anotacao.title);
+        // Format date back to DD/MM/YYYY for the input
+        const [year, month, day] = anotacao.date.split('-');
+        setDate(`${day}/${month}/${year}`);
+        setTime(anotacao.time);
+        setDetails(anotacao.details || '');
+      }
+    }
+  }, [anotacaoId, anotacoes, isEditing]);
 
   const handleSalvar = async () => {
     if (!title.trim() || !date.trim() || !time.trim()) {
@@ -42,8 +57,19 @@ export const AdicionarAnotacao = ({ navigation }: Props) => {
     
     const [_, dia, mes, ano] = match;
     const formattedDate = `${ano}-${mes}-${dia}`;
+    
+    const anotacaoData = { 
+      title: title.trim(), 
+      date: formattedDate, 
+      time: time.trim(), 
+      details: details.trim() 
+    };
 
-    await adicionarAnotacao({ title: title.trim(), date: formattedDate, time: time.trim(), details: details.trim() });
+    if (isEditing) {
+      await editarAnotacao({ id: anotacaoId, ...anotacaoData });
+    } else {
+      await adicionarAnotacao(anotacaoData);
+    }
     navigation.goBack();
   };
 
@@ -55,7 +81,7 @@ export const AdicionarAnotacao = ({ navigation }: Props) => {
       <View style={styles.innerContainer}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
           <ScrollView>
-            <Text style={styles.title}>Nova Anotação</Text>
+            <Text style={styles.title}>{isEditing ? 'Editar Anotação' : 'Nova Anotação'}</Text>
             <View style={styles.form}>
               <Text style={styles.label}>Título</Text>
               <TextInput style={styles.input} value={title} onChangeText={setTitle} placeholder="Ex: Fui ao trabalho" placeholderTextColor={COLORS.textTertiary}/>

@@ -5,6 +5,8 @@ import { carregarAnotacoes, salvarAnotacoes } from '../data/storage';
 interface AnotacoesContextData {
   anotacoes: Anotacao[];
   adicionarAnotacao: (anotacao: Omit<Anotacao, 'id'>) => Promise<void>;
+  editarAnotacao: (anotacao: Anotacao) => Promise<void>;
+  excluirAnotacao: (anotacaoId: string) => Promise<void>;
   loading: boolean;
 }
 
@@ -37,12 +39,31 @@ export const AnotacoesProvider: React.FC<{children: ReactNode}> = ({ children })
       await salvarAnotacoes(novasAnotacoes);
     } catch (error) {
       console.error(error);
-      // Poderíamos reverter o estado aqui se a persistência falhar
+    }
+  };
+
+  const editarAnotacao = async (anotacaoAtualizada: Anotacao) => {
+    try {
+      const novasAnotacoes = anotacoes.map(a => a.id === anotacaoAtualizada.id ? anotacaoAtualizada : a);
+      setAnotacoes(novasAnotacoes);
+      await salvarAnotacoes(novasAnotacoes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const excluirAnotacao = async (anotacaoId: string) => {
+    try {
+      const novasAnotacoes = anotacoes.filter(a => a.id !== anotacaoId);
+      setAnotacoes(novasAnotacoes);
+      await salvarAnotacoes(novasAnotacoes);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <AnotacoesContext.Provider value={{ anotacoes, adicionarAnotacao, loading }}>
+    <AnotacoesContext.Provider value={{ anotacoes, adicionarAnotacao, editarAnotacao, excluirAnotacao, loading }}>
       {children}
     </AnotacoesContext.Provider>
   );

@@ -27,7 +27,6 @@ export const MateriasNavigator = () => {
         component={AdicionarMateria}
         options={{
           title: 'Nova Matéria',
-          presentation: 'modal',
         }}
       />
       <Stack.Screen

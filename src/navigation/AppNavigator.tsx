@@ -15,7 +15,6 @@ export const AppNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: COLORS.background,
-          bottom: 20,
         },
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.textTertiary,

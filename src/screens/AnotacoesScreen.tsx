@@ -3,12 +3,9 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator }
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAnotacoes } from '../context/AnotacoesContext';
 import { COLORS, SIZES } from '../constants/theme';
-import { StackScreenProps } from '@react-navigation/stack';
-import { AnotacoesStackParamList } from '../navigation/types';
+import { AnotacoesScreenProps } from '../navigation/types';
 
-type Props = StackScreenProps<AnotacoesStackParamList, 'Anotacoes'>;
-
-export const AnotacoesScreen = ({ navigation }: Props) => {
+export const AnotacoesScreen = ({ navigation }: AnotacoesScreenProps) => {
   const { anotacoes, loading } = useAnotacoes();
 
   if (loading) {
@@ -29,14 +26,15 @@ export const AnotacoesScreen = ({ navigation }: Props) => {
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ paddingBottom: 100 }}
           renderItem={({ item }) => (
-            <View style={styles.card}>
-              <View style={styles.cardTextContent}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardSubtitle}>{new Date(item.date).toLocaleDateString()} - {item.time}</Text>
-                <Text style={styles.cardDetails}>{item.details}</Text>
-              </View>
-            </View>
-          )}
+            <TouchableOpacity onPress={() => navigation.navigate('DetalhesAnotacao', { anotacaoId: item.id })}>
+                <View style={styles.card}>
+                    <View style={styles.cardTextContent}>
+                    <Text style={styles.cardTitle}>{item.title}</Text>
+                    <Text style={styles.cardSubtitle}>{new Date(item.date).toLocaleDateString()} - {item.time}</Text>
+                    <Text style={styles.cardDetails}>{item.details}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>          )}
           ListEmptyComponent={
             <View style={styles.center}>
               <Text style={{ color: COLORS.textSecondary }}>Nenhuma anotação cadastrada ainda.</Text>
@@ -46,7 +44,7 @@ export const AnotacoesScreen = ({ navigation }: Props) => {
         />
         <TouchableOpacity
           style={styles.fab}
-          onPress={() => navigation.navigate('AdicionarAnotacao')}
+          onPress={() => navigation.navigate('AdicionarAnotacao', {})}
         >
           <Text style={styles.fabIcon}>+</Text>
         </TouchableOpacity>
