@@ -30,8 +30,8 @@ export const AnotacoesScreen = ({ navigation }: AnotacoesScreenProps) => {
                 <View style={styles.card}>
                     <View style={styles.cardTextContent}>
                     <Text style={styles.cardTitle}>{item.title}</Text>
-                    <Text style={styles.cardSubtitle}>{new Date(item.date).toLocaleDateString()} - {item.time}</Text>
-                    <Text style={styles.cardDetails}>{item.details}</Text>
+                    <Text style={styles.cardSubtitle}>{item.date} - {item.time}</Text>
+                    <Text style={styles.cardDetails}>Detalhes: {item.details}</Text>
                     </View>
                 </View>
             </TouchableOpacity>          )}
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   cardDetails: {
     fontSize: SIZES.textNormal,
-    marginTop: 8,
+    marginTop: 5,
     color: COLORS.textPrimary,
   },
   fab: {

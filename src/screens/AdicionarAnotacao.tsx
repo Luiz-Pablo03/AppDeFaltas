@@ -32,9 +32,7 @@ export const AdicionarAnotacao = ({ route, navigation }: AdicionarAnotacaoScreen
       const anotacao = anotacoes.find(a => a.id === anotacaoId);
       if (anotacao) {
         setTitle(anotacao.title);
-        // Format date back to DD/MM/YYYY for the input
-        const [year, month, day] = anotacao.date.split('-');
-        setDate(`${day}/${month}/${year}`);
+        setDate(anotacao.date);
         setTime(anotacao.time);
         setDetails(anotacao.details || '');
       }
@@ -48,19 +46,52 @@ export const AdicionarAnotacao = ({ route, navigation }: AdicionarAnotacaoScreen
     }
 
     const dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    const match = date.match(dateRegex);
+    const dateMatch = date.match(dateRegex);
 
-    if (!match) {
-        Alert.alert("Formato de Data Inválido", "Por favor, insira a data no formato DD/MM/AAAA.");
-        return;
+    if (!dateMatch) {
+      Alert.alert("Formato de Data Inválido", "Por favor, insira a data no formato DD/MM/AAAA.");
+      return;
     }
-    
-    const [_, dia, mes, ano] = match;
-    const formattedDate = `${ano}-${mes}-${dia}`;
-    
+
+    const [_, dia, mes, ano] = dateMatch;
+    const diaNum = parseInt(dia, 10);
+    const mesNum = parseInt(mes, 10);
+
+    if (diaNum < 1 || diaNum > 31) {
+      Alert.alert("Data Inválida", "O dia deve estar entre 1 e 31.");
+      return;
+    }
+
+    if (mesNum < 1 || mesNum > 12) {
+      Alert.alert("Data Inválida", "O mês deve estar entre 1 e 12.");
+      return;
+    }
+
+    const timeRegex = /^(\d{2}):(\d{2})$/;
+    const timeMatch = time.match(timeRegex);
+
+    if (!timeMatch) {
+      Alert.alert("Formato de Hora Inválido", "Por favor, insira a hora no formato HH:MM.");
+      return;
+    }
+
+    const [__, hora, minuto] = timeMatch;
+    const horaNum = parseInt(hora, 10);
+    const minutoNum = parseInt(minuto, 10);
+
+    if (horaNum < 0 || horaNum > 23) {
+      Alert.alert("Hora Inválida", "A hora deve estar entre 0 e 23.");
+      return;
+    }
+
+    if (minutoNum < 0 || minutoNum > 59) {
+      Alert.alert("Hora Inválida", "O minuto deve estar entre 0 e 59.");
+      return;
+    }
+
     const anotacaoData = { 
       title: title.trim(), 
-      date: formattedDate, 
+      date: date.trim(), 
       time: time.trim(), 
       details: details.trim() 
     };
@@ -71,6 +102,33 @@ export const AdicionarAnotacao = ({ route, navigation }: AdicionarAnotacaoScreen
       await adicionarAnotacao(anotacaoData);
     }
     navigation.goBack();
+  };
+
+  const formatDate = (text: string) => {
+    const cleaned = text.replace(/[^0-9]/g, '');
+    const match = cleaned.match(/^(\d{0,2})(\d{0,2})(\d{0,4})$/);
+    if (!match) {
+      return '';
+    }
+    const part1 = match[1];
+    const part2 = match[2];
+    const part3 = match[3];
+  
+    if (part3.length > 0) {
+      return `${part1}/${part2}/${part3}`;
+    }
+    if (part2.length > 0) {
+      return `${part1}/${part2}`;
+    }
+    return part1;
+  };
+  
+  const formatTime = (text: string) => {
+    const cleaned = text.replace(/[^0-9]/g, '');
+    if (cleaned.length <= 2) {
+      return cleaned;
+    }
+    return `${cleaned.slice(0, 2)}:${cleaned.slice(2, 4)}`;
   };
 
   const isLightTheme = COLORS.background === '#f5f5f5';
@@ -87,10 +145,26 @@ export const AdicionarAnotacao = ({ route, navigation }: AdicionarAnotacaoScreen
               <TextInput style={styles.input} value={title} onChangeText={setTitle} placeholder="Ex: Fui ao trabalho" placeholderTextColor={COLORS.textTertiary}/>
 
               <Text style={styles.label}>Data</Text>
-              <TextInput style={styles.input} value={date} onChangeText={setDate} placeholder="DD/MM/AAAA" placeholderTextColor={COLORS.textTertiary}/>
+              <TextInput
+                style={styles.input}
+                value={date}
+                onChangeText={(text) => setDate(formatDate(text))}
+                placeholder="DD/MM/AAAA"
+                keyboardType="numeric"
+                maxLength={10}
+                placeholderTextColor={COLORS.textTertiary}
+              />
               
               <Text style={styles.label}>Horário</Text>
-              <TextInput style={styles.input} value={time} onChangeText={setTime} placeholder="Ex: 14h-16h" placeholderTextColor={COLORS.textTertiary}/>
+              <TextInput
+                style={styles.input}
+                value={time}
+                onChangeText={(text) => setTime(formatTime(text))}
+                placeholder="HH:MM"
+                keyboardType="numeric"
+                maxLength={5}
+                placeholderTextColor={COLORS.textTertiary}
+              />
 
               <Text style={styles.label}>Detalhes (Opcional)</Text>
               <TextInput style={[styles.input, { height: 100 }]} value={details} onChangeText={setDetails} placeholder="Ex: Fiz hora extra" multiline placeholderTextColor={COLORS.textTertiary}/>

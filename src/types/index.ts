@@ -24,7 +24,7 @@ export interface Horario {
   
   export interface Anotacao {
     id: string;
-    date: string; // YYYY-MM-DD
+    date: string; // DD/MM/AAAA
     time: string;
     title: string;
     details?: string;

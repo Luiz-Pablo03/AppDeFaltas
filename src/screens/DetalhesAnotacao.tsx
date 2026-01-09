@@ -44,9 +44,8 @@ export const DetalhesAnotacao = ({ route, navigation }: DetalhesAnotacaoScreenPr
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <View style={styles.headerContainer}>
           <Text style={styles.title}>{anotacao.title}</Text>
-          <Text style={styles.subtitle}>{new Date(anotacao.date).toLocaleDateString('pt-BR')} - {anotacao.time}</Text>
-          
-          <Text style={styles.details}>{anotacao.details}</Text>
+          <Text style={styles.subtitle}>{anotacao.date} - {anotacao.time}</Text>
+          <Text style={styles.details}>Detalhes: {anotacao.details}</Text>
         </View>
 
         <View style={styles.actionsContainer}>

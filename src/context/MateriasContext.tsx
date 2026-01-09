@@ -101,7 +101,6 @@ export const MateriasProvider = ({ children }: { children: React.ReactNode }) =>
         materias,
         loading,
         adicionarMateria,
-        // Adicionando as novas funções para serem compartilhadas
         excluirMateria,
         adicionarFalta,
         removerFalta,
